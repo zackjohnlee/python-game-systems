@@ -13,13 +13,14 @@ def px_to_grid(x):
     x = x * (cell_size + spacing)
     return x
 
+
 def grid_to_px(x):
     x = x // (cell_size + spacing)
     return x
 
+
 def draw_object(obj, surface, cell_x, cell_y):
-    text_rect = obj.get_rect(center=(cell_x + cell_size // 2, cell_y + cell_size // 2))
+    text_rect = obj.get_rect(
+        center=(cell_x + cell_size // 2, cell_y + cell_size // 2))
     # print(text_rect, surface)
     surface.blit(obj, text_rect)
-
-

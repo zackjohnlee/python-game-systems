@@ -2,7 +2,9 @@ import pygame
 from parameters import *
 
 pygame.font.init()
-font = pygame.font.SysFont("segoeuisymbol", cell_size)  # You can adjust the font size as needed
+# You can adjust the font size as needed
+font = pygame.font.SysFont("segoeuisymbol", cell_size)
+
 
 def prerender_characters(chars, color):
     rendered_chars = []

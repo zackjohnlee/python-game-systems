@@ -8,22 +8,23 @@ from vector import Vector
 from parameters import *
 from pre_render import prerender_characters
 
+
 @add_position
 @dataclass
 class Agent:
-    speed:float = 0.2
+    speed: float = 0.2
     last_step_time = 0
-    x:int = 10
-    y:int = 10
-    px_x:int = px_to_grid(x)
-    px_y:int = px_to_grid(y)
+    x: int = 10
+    y: int = 10
+    px_x: int = px_to_grid(x)
+    px_y: int = px_to_grid(y)
 
-    color:str = "#33ddee"
+    color: str = "#33ddee"
     icon = "\ue11d"
     char = prerender_characters(icon, color)
 
-    target:Vector = None
-    path:list = None
+    target: Vector = None
+    path: list = None
 
     def set_color(self, color):
         self.color = color
@@ -65,7 +66,7 @@ class Agent:
             # Update the agent's position
             self.x = self.x + dx
             self.y = self.y + dy
-            print(f"agent: {self.x}, {self.y}")
+            # print(f"agent: {self.x}, {self.y}")
             self.last_step_time = current_time
 
     def set_target(self, target):
@@ -76,7 +77,7 @@ class Agent:
         elapsed_time = current_time-self.last_step_time
         if elapsed_time >= self.speed:
             target = self.path[0]
-            print(f"agent: {self.x}, {self.y}")
+            # print(f"agent: {self.x}, {self.y}")
 
             self.x = target[0]
             self.y = target[1]

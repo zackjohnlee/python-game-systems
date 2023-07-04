@@ -13,22 +13,24 @@ pygame.display.set_caption('Quick Start')
 window_surface = pygame.display.set_mode((grid_width, grid_height))
 
 active_surface = pygame.Surface((grid_width, grid_height), pygame.SRCALPHA)
-active_surface.fill((0,0,0,0))
+active_surface.fill((0, 0, 0, 0))
 grass_surface = pygame.Surface((grid_width, grid_height), pygame.SRCALPHA)
-grass_surface.fill((0,0,0,0))
+grass_surface.fill((0, 0, 0, 0))
 background = pygame.Surface((grid_width, grid_height))
 background.fill(pygame.Color('#333333'))
 
 manager = pygame_gui.UIManager((grid_width, grid_height))
 
-grass_chars = ["\u2801", "\u2802", "\u2056", "\u205b", 
-              "\u2808", "\u280a", "\u280c", "\u2810", 
-              "\u2820", "\u2882", "\u288c", "\u2888",
-              "\u2234", "\u2237"]
-              
-grid = [[None for _ in range(grid_width)] for _ in range(grid_height)]
+grass_chars = ["\u2801", "\u2802", "\u2056", "\u205b",
+               "\u2808", "\u280a", "\u280c", "\u2810",
+               "\u2820", "\u2882", "\u288c", "\u2888",
+               "\u2234", "\u2237"]
+
+grid = [[None for _ in range(grid_col)] for _ in range(grid_row)]
 
 # Function to generate objects randomly in the grid
+
+
 def generate_objects(chars):
     for x in range(grid_col):
         for y in range(grid_row):
@@ -36,9 +38,11 @@ def generate_objects(chars):
             object_char = random.choice(chars)
             grid[y][x] = object_char
 
+
 grass = pre_render.prerender_characters(grass_chars, (74, 152, 111))
-agent_char = pre_render.prerender_characters("\u26c4", (255,255,255))
+agent_char = pre_render.prerender_characters("\u26c4", (255, 255, 255))
 generate_objects(grass)
+
 
 def update_grid():
     # Draw grid cells
@@ -50,7 +54,8 @@ def update_grid():
 
             obj_char = grid[y][x]
             if obj_char is not None:
-                draw_object(obj_char, grass_surface, px_to_grid(x), px_to_grid(y))
+                draw_object(obj_char, grass_surface,
+                            px_to_grid(x), px_to_grid(y))
 
 
 agent_1 = Agent()
@@ -87,13 +92,12 @@ while is_running:
     # else:
     #     # Pathfinding is complete, update the agent's path
     #     agent_1.path = pathfinding_thread.result
- 
 
     if pygame.time.get_ticks() % 120 == 0:
         # start = (agent_1.x, agent_1.y)
         rand_a = random.randint(0, grid_width - 1)
         rand_b = random.randint(0, grid_height - 1)
-        # target = (grid_to_px(rand_a), 
+        # target = (grid_to_px(rand_a),
         #           grid_to_px(rand_b))
         # # target = (grid_to_px(400), grid_to_px(400))
         show_target = (rand_a, rand_b)
@@ -102,16 +106,15 @@ while is_running:
         # path = AStar.astar_pathfinding(start, target)
         # print(path)
         # agent_1.path = path
-        agent_1.target = (grid_to_px(rand_a), 
-                        grid_to_px(rand_b))
+        agent_1.target = (grid_to_px(rand_a),
+                          grid_to_px(rand_b))
 
     agent_2.target = (agent_1.x, agent_1.y)
-    active_surface.fill((0,0,0,0))
+    active_surface.fill((0, 0, 0, 0))
     agent_1.update()
     agent_1.show(active_surface)
     agent_2.update()
     agent_2.show(active_surface)
-
 
     # manager.update(time_delta)
     window_surface.blit(background, (0, 0))
